@@ -40,7 +40,7 @@ for (i in 1:nrow(dx)) {
 return(a)
 }
 
-build_res_from_feas_pst <- function(shrinkLvV, fgseaResTidy, padj_cut = 0.25,  keywords = NULL , UPonly = FALSE, DNonly = FALSE )
+build_res_from_feas_pst <- function(shrinkLvV, fgseaResTidy, padj_cut = 0.25,  keywords = NULL, ex_keywords= NULL, UPonly = FALSE, DNonly = FALSE )
     {
   UP_genes <- rownames(shrinkLvV[shrinkLvV$log2FoldChange > 0 &shrinkLvV$padj < 0.05,])
   DN_genes <- rownames(shrinkLvV[shrinkLvV$log2FoldChange < 0 &shrinkLvV$padj < 0.05,])
@@ -76,6 +76,12 @@ if (!is.null(keywords)) {
   dx <- dx1
 } 
 
+
+if (!is.null(ex_keywords)) {
+    for (i in 1:length(ex_keywords)) {
+      dx <- dx[!grepl(ex_keywords[i], dx$pathway),] 
+    }
+} 
 
 
 dx$ID <- dx$pathway
