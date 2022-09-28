@@ -2,7 +2,7 @@ library( stringi )
 library(igraph)
 library(ggraph)
 library(scatterpie)
-
+library(ReactomePA)
 source("https://raw.githubusercontent.com/YuLab-SMU/enrichplot/c50579c780158330dd8f828c31580bc187d3f744/R/emapplot_utilities.R")
 source("https://raw.githubusercontent.com/YuLab-SMU/enrichplot/01dfdd27acc02ca57e7103fe5689a892c06eebd5/R/utilities.R")
 
