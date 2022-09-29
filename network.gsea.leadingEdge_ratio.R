@@ -6,7 +6,6 @@ library(ReactomePA)
 source("https://raw.githubusercontent.com/YuLab-SMU/enrichplot/c50579c780158330dd8f828c31580bc187d3f744/R/emapplot_utilities.R")
 source("https://raw.githubusercontent.com/YuLab-SMU/enrichplot/01dfdd27acc02ca57e7103fe5689a892c06eebd5/R/utilities.R")
 
-
 pst <- function(dx) {
   #dx <- fgseaResTidy.MinoR_10
   a <- c()
@@ -270,16 +269,20 @@ if (is.null(dim(y)) | nrow(y) == 1 | is.null(dim(mergedEnrichDf)) | nrow(mergedE
     i <- match(desc, ggData$name)
     ID_Cluster_mat$x <- ggData$x[i]
     ID_Cluster_mat$y <- ggData$y[i]
-    ID_Cluster_mat$radius <- ggData$size[i]/2#sqrt(ggData$size[i] / sum(ggData$size) * cex_category * cex_pie2axis)
+    ID_Cluster_mat$radius <- # mergedEnrichDf$leadingEdgeRatio[i]
+                          ggData$size[i]/2
+    #sqrt(ggData$size[i] / sum(ggData$size) * cex_category * cex_pie2axis)
     return(ID_Cluster_mat)
 }
     ## then add the pie plot
     ## Get the matrix data for the pie plot
     ID_Cluster_mat <- get_pie_data2(enrichDf = y, pie = pie, mergedEnrichDf = mergedEnrichDf, cex_pie2axis = cex_pie2axis, 
                                    p = p, cex_category = cex_category)
-
-    
-    add_pie_node2 <- function(p, ID_Cluster_mat, node_label, 
+if (ncol(ID_Cluster_mat) == 4) {
+        ID_Cluster_mat$XXXX <- 0
+     ID_Cluster_mat <- ID_Cluster_mat[,c(1,5,2:4)]
+}
+        add_pie_node2 <- function(p, ID_Cluster_mat, node_label, 
                          cex_category, cex_pie2axis,
                          cex_label_category,
                          shadowtext, legend_n,
@@ -337,4 +340,3 @@ if (is.null(dim(y)) | nrow(y) == 1 | is.null(dim(mergedEnrichDf)) | nrow(mergedE
     
     return(p)
 }
-
